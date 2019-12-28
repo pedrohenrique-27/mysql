@@ -1,0 +1,38 @@
+
+create database if not exists empresa;
+
+use empresa;
+
+create table cargo (
+Codcargo char(2) not null primary key,
+Nomecargo varchar(50),
+Valorcargo double null
+) Engine = InnoDB;
+
+
+create table funcionario (
+Matricula int not null primary key,
+NomeFuncionario varchar(50),
+Codcargo char(2),
+foreign key (Codcargo)
+references cargo(Codcargo)
+) Engine = InnoDB;
+
+insert into cargo values
+('C1',  'Caixa', '800.00'),
+('C2',  'Vendedor', '1200.00'),
+('C3',  'Gerente', '2400.00');
+
+insert into funcionario values
+(100, 'João', 'C1'),
+(110, 'Maria', 'C2'),
+(120, 'Carlos', 'C1'),
+(130, 'Tadeu', Null);
+
+select f.*
+from funcionario as f
+inner join cargo as p
+on f.codcargo = p.codcargo
+where f.nomefuncionario like 'j%'
+and p.nomecargo= 'caixa'
+
